@@ -60,3 +60,20 @@ Description:
   - `gleason`: Gleason score.
   - `pgg45`: percentage Gleason scores 4 or 5.
   - `lpsa` (target): log of PSA.
+
+### PCA and linear regression : application to Prostate Cancer & Boston Housing datasets/
+
+Principal Component Analysis (PCA) is a dimensionality reduction technique that aims to reduce the number or features in the dataset. The technique is to combine the features in one matrix and extract the eigenvectors associated to the k highest eigenvalues in order to become the new features.
+
+PCA when combined with linear regression is called Principal component regression (PCR) algorithm. The main issue we face with multi variate features data (data with considerable number of features) is the high variance of the model, which implies high instability of the prediction.
+
+Consequently, the goal of reducing the dimension is to add more bias to the model, and therefore to penalize the accuracy but to guarantee less variance of the predictions.
+
+The steps of the algorithm consist on creating the principal components from the existing features at first. Then we train the model on the components and transform the PCs back to the original features to make predictions on the actual dataset.
+
+One of the main advantages of performing PCA before regression is to reduce the spatial and temporal complexity of the algorithm, and hence gain in performance. The second is to deal with overfitting especially on data with high colinearity.
+
+The crucial decision to take before performing the PCA is to choose the number of output features. In our model, we choose to select the features depending on a desired level of variance to keep in our data.
+
+References : https://en.wikipedia.org/wiki/Principal_component_regression
+https://iq.opengenus.org/principal-component-regression/
