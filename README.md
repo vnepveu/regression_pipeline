@@ -24,7 +24,7 @@ python main.py dataset_filename
 
 Download this dataset [here](https://www.kaggle.com/altavish/boston-housing-dataset).
 
-There are 13 features to predict the price houses in Boston.
+There are 13 features to predict the price houses in Boston (`MEDV` feature).
 
 Description:
   - `CRIM`: per capita crime rate by town.
@@ -38,7 +38,7 @@ Description:
   - `RAD`: index of accessibility to radial highways.
   - `TAX`: full-value property-tax rate per $10,000.
   - `PTRATIO`: pupil-teacher ratio by town.
-  - `B`: 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town.
+  - `B`: 1000(Bk - 0.63)^2 where Bk is the proportion of african americans by town.
   - `LSTAT`: % lower status of population.
   - `MEDV` (target): median value of owner-occupied homes in $1000's.
 
@@ -48,7 +48,7 @@ Description:
 Download this dataset [here](https://web.stanford.edu/~hastie/ElemStatLearn/datasets/prostate.data).
 The last column of the original dataset `train` has been removed.
 
-There are 8 features to predict a log of PSA (Prostate Specific Antigen) value, a marker for Prostate cancer.
+There are 8 features to predict a log of PSA (Prostate Specific Antigen) value, a marker for Prostate cancer (`lpsa` feature).
 
 Description:
   - `lcavol`: log of cancer volume.

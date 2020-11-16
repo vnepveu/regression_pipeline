@@ -16,7 +16,7 @@ def load_dataset(filename: str) -> pd.DataFrame:
 
 def _prepare_float(
     column_series: pd.Series, mean: bool = True, standardize: bool = True
-):
+) -> pd.Series:
     """
     Fill missing values of a float column with its mean or median,
     and standardize it.
@@ -38,7 +38,7 @@ def _prepare_float(
     return column_series
 
 
-def _prepare_int(column_series: pd.Series, mean: bool = True):
+def _prepare_int(column_series: pd.Series, mean: bool = True) -> pd.Series:
     """Fill missing values of an integer column with its mean or median.
 
     :param column_series: column to process.
@@ -52,13 +52,12 @@ def _prepare_int(column_series: pd.Series, mean: bool = True):
     return column_series
 
 
-def _prepare_bool(column_series: pd.Series):
+def _prepare_bool(column_series: pd.Series) -> pd.Series:
     """Fill missing values of a bolean column with the most frequent value.
 
     :param column_series: column to process.
     :return: the processed column.
     """
-    # Fill missing values with the mean or the median of the column
     filling_value = column_series.mode()
     column_series.fillna(int(filling_value), inplace=True)
 
@@ -71,14 +70,11 @@ def prepare_data(dataset_df: pd.DataFrame):
     :param dataset_df: dataset to process.
     """
     for column_name, column_series in dataset_df.iteritems():
-        # Check whether the column type is boolean or integer
         if is_integer_dtype(column_series):
             if set(column_series.unique()) == {0, 1}:
                 dataset_df[column_name] = _prepare_bool(column_series)
             else:
                 dataset_df[column_name] = _prepare_int(column_series)
-
-        # Check whether the column type is float
         elif is_float_dtype(column_series):
             dataset_df[column_name] = _prepare_float(column_series)
 
