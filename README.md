@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-python main.py dataset_filename
+python main.py dataset_filename -n n_splits
 ```
 
 ## Datasets
