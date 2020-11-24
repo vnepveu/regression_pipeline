@@ -1,5 +1,7 @@
 import os
+from typing import Tuple
 
+import numpy as np
 import pandas as pd
 from pandas.api.types import is_integer_dtype, is_float_dtype
 
@@ -66,36 +68,49 @@ def _prepare_bool(column_series: pd.Series) -> pd.Series:
 
 def prepare_data(
     dataset_df: pd.DataFrame,
-    fill_bool: bool = True,
-    fill_int: bool = True,
-    fill_float: bool = True,
+    drop_na: bool = False,
     mean_int: bool = True,
     mean_float: bool = True,
     rescale_float: bool = True,
     standardize_float: bool = True,
-):
+) -> None:
     """Fill missing values and standardize float columns.
     :param dataset_df: dataset to process.
-    :param fill_bool: whether to fill missing boolean values.
-    :param fill_int: whether to fill missing integer values.
-    :param fill_float: whether to fill missing float values.
+    :param drop_na: whether to drop every row with at least on `NaN` cell.
     :param mean_int: whether to use mean or the median for missing integers.
     :param mean_float: whether to use mean or the median for missing floats.
     :param rescale_float: whether to rescale floats (standardize or normalize).
     :param standardize_float: whether to apply standardization or normalization.
     """
+    if drop_na:
+        dataset_df.dropna()
+        return
+
     for column_name, column_series in dataset_df.iteritems():
         if is_integer_dtype(column_series):
             if set(column_series.unique()) == {0, 1}:
-                if fill_bool:
-                    dataset_df[column_name] = _prepare_bool(column_series)
-            elif fill_int:
+                dataset_df[column_name] = _prepare_bool(column_series)
+            else:
                 dataset_df[column_name] = _prepare_int(column_series, mean_int)
         elif is_float_dtype(column_series):
-            if fill_float:
-                dataset_df[column_name] = _prepare_float(
-                    column_series, mean_float, rescale_float, standardize_float
-                )
+            dataset_df[column_name] = _prepare_float(
+                column_series, mean_float, rescale_float, standardize_float
+            )
         # Raise an error is the column's type is not boolean, integer or float
         else:
             raise TypeError(f"Unrecognized type, column: {column_name}")
+
+
+def get_data_arrays(dataset_df: pd.DataFrame) -> Tuple[np.array, np.array]:
+    """
+    Split the dataset into design matrix and label vector, and convert them
+    into numpy arrays.
+    :param dataset_df: dataset to process.
+    :return:
+        - `X`: design matrix (n_samples, n_features).
+        - `y_true`: target vector (n_samples, ).
+    """
+    y_true = dataset_df.iloc[:, -1].to_numpy()
+    X = dataset_df.iloc[:, :-1].to_numpy()
+
+    return X, y_true
