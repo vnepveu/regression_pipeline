@@ -19,19 +19,17 @@ def polynomial_regression(dataset : pd.DataFrame,degree : float) -> Tuple[np.arr
 
     # Extract labels and features from data
     nb_columns = len(dataset.columns)
-    y = data_work.iloc[:,nb_columns-1]
-    x = data_work.iloc[:,0:nb_columns-1]
+    y = dataset.iloc[:,nb_columns-1]
+    x = dataset.iloc[:,0:nb_columns-1]
 
-    # Test & train split
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=30)
 
     # Transform features into their higher order terms. the final number of columns is given by C(n+d,d).
     # C() denotes the binomial operator.
     polynomial_features= PolynomialFeatures(degree=degree)
-    x_train = polynomial_features.fit_transform(x_train)
-    x_test = polynomial_features.fit_transform(x_test)
 
-    return x_train, x_test, y_train, y_test
+    x_poly = polynomial_features.fit_transform(x)
+
+    return x_poly, y
 
 def forward_regression(dataset : pd.DataFrame,
                        threshold_in: float,
@@ -50,8 +48,8 @@ def forward_regression(dataset : pd.DataFrame,
 
     included = list(initial_list)
     nb_columns = len(dataset.columns)
-    y = data_work.iloc[:,nb_columns-1]
-    x = data_work.iloc[:,0:nb_columns-1]
+    y = dataset.iloc[:,nb_columns-1]
+    x = dataset.iloc[:,0:nb_columns-1]
     while True:
         changed=False
         excluded = list(set(x.columns)-set(included))
@@ -77,10 +75,8 @@ def forward_regression(dataset : pd.DataFrame,
 
     for col in included:
         models_fwd[col] = x[col]
-    # Splitting data into train and test set
-    x_train, x_test, y_train, y_test = train_test_split(models_fwd, y, test_size=0.33, random_state=30)
 
-    return x_train, x_test, y_train, y_test
+    return models_fwd, y
 
 def backward_regression(dataset : pd.DataFrame,threshold_out: float,
                            verbose=True) -> Tuple[np.array, np.array, np.array, np.array, np.array]:
@@ -94,8 +90,8 @@ def backward_regression(dataset : pd.DataFrame,threshold_out: float,
     """
 
     nb_columns = len(dataset.columns)
-    y = data_work.iloc[:,nb_columns-1]
-    x = data_work.iloc[:,0:nb_columns-1]
+    y = dataset.iloc[:,nb_columns-1]
+    x = dataset.iloc[:,0:nb_columns-1]
     # included list will contain all feature names before starting to delete the selected ones.
     included=list(x.columns)
 
@@ -120,44 +116,5 @@ def backward_regression(dataset : pd.DataFrame,threshold_out: float,
 
     for col in included:
         models_fwd[col] = x[col]
-    # Splitting data into train and test set
-    x_train, x_test, y_train, y_test = train_test_split(models_fwd, y, test_size=0.33, random_state=30)
     
-    return x_train, x_test, y_train, y_test
-
-def fit_polynomial_stepwise(model: BaseEstimator, x_train : np.array , y_test : np.array) -> BaseEstimator:
-
-    """Fit a polynomial or a stepwise model given its parameters.
-    :param model: Polynomial or StepWise regression.
-    :param x_train : Training set.
-    :param y_train : Training labels.
-    :return: model fitted on the given parameters.
-    """
-
-    model = clone(model)
-    model.fit(x_train, y_train)
-    return model
-
-def predict_polynomial_stepwise(model : BaseEstimator, x_test : np.array,y_test : np.array) -> np.array:
-
-    """ Polynomial or stepwise prediction.
-    :param dataset : Polynomial or StepWise regression.
-    :param x_test : Test set.
-    :param y_test : Test labels
-    :return: Model predictions.
-    """
-
-    return model.predict(x_test)
-
-def scores_regression_poly_stepwise(predictions : np.array,y_test : np.array) -> Tuple[float,float]:
-
-    """ Mean squared error and r2 score of the model prediction.
-    :param dataset : Polynomial or StepWise regression.
-    :param predictions : Model prediction.
-    :param y_test : Test labels
-    :return: regression scores.
-    """
-
-    rmse = np.sqrt(mean_squared_error(y_test,predictions))
-    r2 = r2_score(y_test,predictions)
-    return rmse, r2
+    return models_fwd, y
