@@ -96,15 +96,14 @@ def select_pca_features(dataset_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def select_polynomial_features(
-    dataset_df: pd.DataFrame, degree: float
+    dataset_df: pd.DataFrame, degree: float = 3
 ) -> pd.DataFrame:
     """
     Split the data into a train and test set and return the associated
     polynomial features.
 
     :param dataset_df: a loaded dataset.
-    :param degree: the polynomial maximum degree to which the features will be
-        developed.
+    :param degree: maximum polynomial degree to develop features.
     :return: transformed dataframe with reduced features and labels.
     """
     # Extract labels and features from data
@@ -130,15 +129,14 @@ def select_polynomial_features(
 
 
 def select_forward_features(
-    dataset_df: pd.DataFrame, threshold_in: float, verbose=True
+    dataset_df: pd.DataFrame, threshold_in: float = 0.05, verbose=True
 ) -> pd.DataFrame:
     """
     Perform a forward feature selection based on the p-value of each ordinary
     least squares method step.
 
     :param dataset_df: a loaded dataset.
-    :param threshold_in : value below which a feature is selected based
-        on its p-value.
+    :param threshold_in: select features below (based on its p-value).
     :return: transformed dataframe with reduced features and labels.
     """
     # initial_list will contain selected feature names
@@ -183,22 +181,21 @@ def select_forward_features(
 
 
 def select_backward_features(
-    dataset_df: pd.DataFrame, threshold_out: float, verbose=True
+    dataset_df: pd.DataFrame, threshold_out: float = 0.01, verbose=False
 ) -> pd.DataFrame:
-
     """
     Perform a backward feature selection based on the p-value of each ordinary
     least squares method step.
 
     :param dataset_df: a loaded dataset.
-    :param threshold_out: value above which a feature is selected based
-        on its p-value.
+    :param threshold_out: select features above (based on its p-value).
     :return: transformed dataframe with reduced features and labels.
     """
     nb_columns = len(dataset_df.columns)
     label_column = dataset_df.iloc[:, nb_columns - 1]
     X = dataset_df.iloc[:, : nb_columns - 1]
-    # included list will contain all feature names before starting to delete the selected ones.
+    # Included list will contain all feature names before starting to delete
+    # the selected ones
     included = list(X.columns)
 
     while True:
