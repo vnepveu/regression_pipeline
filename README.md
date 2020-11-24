@@ -15,8 +15,11 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-python main.py dataset_filename -n n_splits
+python main.py dataset_filename feature_selection -n n_splits
 ```
+
+If `feature_selection` argument is not provided, no preprocessing will be done.
+If `n_splits` argument is not provided, there will be 2 cross-validation steps.
 
 ## Datasets
 
