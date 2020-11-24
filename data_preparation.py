@@ -112,5 +112,5 @@ def get_data_arrays(dataset_df: pd.DataFrame) -> Tuple[np.array, np.array]:
     """
     y_true = dataset_df.iloc[:, -1].to_numpy()
     X = dataset_df.iloc[:, :-1].to_numpy()
-
+    
     return X, y_true
