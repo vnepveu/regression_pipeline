@@ -81,3 +81,16 @@ The crucial decision to take before performing the PCA is to choose the number o
 
 References : https://en.wikipedia.org/wiki/Principal_component_regression
 https://iq.opengenus.org/principal-component-regression/
+
+### Select features according to correlation
+
+This technique takes in parameter the number 'k' of features to keep to train the model during next step.
+The SelectKbest function using f_regression as score function, compute the correlation between each of the input feature and the label column.
+Only the'k' inputs having the higher correlation factors are kept for the model training.
+
+### Select features using Ridge
+
+Ridge regression can be used for feature selection.
+It is a regularization method that learns which features contribute best to the accuracy of the model while the model is being crated.
+It introduces additional constraints into the cost function and drive the model toward lower complexity (fewer coefficients).
+
