@@ -129,7 +129,7 @@ def select_polynomial_features(
 
 
 def select_forward_features(
-    dataset_df: pd.DataFrame, threshold_in: float = 0.05, verbose=True
+    dataset_df: pd.DataFrame, threshold_in: float = 0.05, verbose=False
 ) -> pd.DataFrame:
     """
     Perform a forward feature selection based on the p-value of each ordinary

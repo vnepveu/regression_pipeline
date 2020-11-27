@@ -1,7 +1,10 @@
+from collections import defaultdict
 from typing import Tuple
 
 import numpy as np
+import pandas as pd
 from sklearn.base import BaseEstimator, clone
+from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import KFold
 
 
@@ -50,3 +53,39 @@ def get_predictions_cv(
         Y_test,
         Y_pred,
     )
+
+
+def get_score_cv(Y_pred, Y_test):
+    """Compute median and mean r2 and MSE over cross-validation predictions.
+
+    :param Y_pred: test predictions (n_splits, n_samples, ).
+    :param Y_test: test target (n_splits, n_samples, ).
+    :rerturn: median and mean of MSE and r2 scores.
+    """
+    # Compute scores for each cross-validation step
+    scores = defaultdict(list)
+    for y_pred, y_test in zip(Y_pred, Y_test):
+        scores["MSE"].append(mean_squared_error(y_pred, y_test))
+        scores["r2"].append(r2_score(y_pred, y_test))
+
+    # Store these score in a table
+    scores_df = pd.DataFrame.from_dict(
+        data=scores,
+        columns=[f"CV {k + 1}" for k in range(len(Y_pred))],
+        orient="index",
+    )
+    # Compute median, mean and standard-diviation of these scores
+    scores_df.loc[:, "median"] = pd.Series(
+        [scores_df.loc["MSE"].median(), scores_df.loc["r2"].median()],
+        index=scores_df.index,
+    )
+    scores_df.loc[:, "mean"] = pd.Series(
+        [scores_df.loc["MSE"].mean(), scores_df.loc["r2"].mean()],
+        index=scores_df.index,
+    )
+    scores_df.loc[:, "std"] = pd.Series(
+        [scores_df.loc["MSE"].std(), scores_df.loc["r2"].std()],
+        index=scores_df.index,
+    )
+
+    return scores_df.round(2).transpose().to_markdown()
