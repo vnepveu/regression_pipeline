@@ -14,28 +14,6 @@ import pandas as pd
 pd.set_option("mode.chained_assignment", None)
 
 
-def select_ridge_features(dataset_df: pd.DataFrame) -> pd.DataFrame:
-    """Select the relevant features using Ridge Regression method.
-
-    :param dataset_df: a loaded dataset.
-    :return: the selected features.
-    """
-    # Splitting label column from input column
-    label_column = dataset_df.iloc[:, -1]
-    X = dataset_df.iloc[:, :-1]
-
-    # Using Ridge regression to select the relevant features
-    selection = SelectFromModel(Ridge())
-    selection.fit(X, label_column)
-    selected_features = dataset_df.columns[(selection.get_support())]
-
-    new_dataset_df = dataset_df[selected_features]
-    # Adding the label column to the transformed dataframe
-    new_dataset_df["label"] = label_column
-
-    return new_dataset_df
-
-
 def select_correlation_features(
     dataset_df: pd.DataFrame, n_features: int = 5
 ) -> pd.DataFrame:
