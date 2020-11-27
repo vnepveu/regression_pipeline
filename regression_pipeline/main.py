@@ -1,7 +1,5 @@
 import argparse
 
-from sklearn.linear_model import LinearRegression  # Temporary, used for test
-from sklearn.metrics import mean_squared_error, r2_score  # Temporary
 from data_preparation import load_dataset, prepare_data, get_data_arrays
 from data_evaluation import get_predictions_cv, get_score_cv
 from feature_engineering import (
@@ -11,32 +9,50 @@ from feature_engineering import (
     select_polynomial_features,
     select_correlation_features,
 )
+from models import (
+    linear_regression,
+    lasso_regression,
+    ridge_regression,
+    elastic_net_regression,
+)
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Launch a regression pipeline given a dataset."
+        description="launch a regression pipeline given a dataset"
     )
     parser.add_argument(
         "dataset_filename",
         type=str,
-        help="Path to the dataset's .csv file.",
+        help="path to the dataset's .csv file",
     )
     parser.add_argument(
-        "feature_selection",
+        "model_name",
         type=str,
-        nargs="?",
-        default=None,
-        choices=["backward", "correlation", "forward", "pca", "polynomial"],
-        help="Type of feature selection to apply.",
+        choices=[
+            "linear",
+            "lasso",
+            "ridge",
+            "elastic-net",
+            "backward",
+            "forward",
+            "polynomial",
+        ],
+        help="type of model to use.",
     )
     parser.add_argument(
-        "--n_splits",
+        "-f",
+        type=str,
+        default=None,
+        choices=["correlation", "pca"],
+        help="type of feature selection to apply (default=None)",
+    )
+    parser.add_argument(
         "-n",
         type=int,
-        nargs="?",
         default=2,
-        help="Number of split for the cross-validation (default = 3).",
+        metavar="",
+        help="number of split for the cross-validation (default=3)",
     )
     args = parser.parse_args()
 
@@ -49,33 +65,42 @@ def main():
         f"({dataset_df.shape[0]} samples)"
     )
 
-    # Preprocess the data
-    feature_selection = args.feature_selection
-    if feature_selection == "backward":
-        dataset_df = select_backward_features(dataset_df)
-    elif feature_selection == "correlation":
-        dataset_df = select_correlation_features(dataset_df)
-    elif feature_selection == "forward":
-        dataset_df = select_forward_features(dataset_df)
-    elif feature_selection == "pca":
-        dataset_df = select_pca_features(dataset_df)
-    elif feature_selection == "polynomial":
-        dataset_df = select_polynomial_features(dataset_df)
-    print(f"+ Preprocessing {feature_selection} applied on data")
+    # Select the features
+    feature_selection = args.f
+    if feature_selection:
+        if feature_selection == "correlation":
+            dataset_df = select_correlation_features(dataset_df)
+        if feature_selection == "pca":
+            dataset_df = select_pca_features(dataset_df)
+        print(f"+ Preprocessing {feature_selection} applied on data")
 
-    # Chose the model
-    model_name = "linear-regression"
-    model = LinearRegression()
+    # Chose the model to use
+    model_name = args.model_name
+    if model_name == "linear":
+        model = linear_regression()
+    if model_name == "lasso":
+        model = lasso_regression()
+    if model_name == "ridge":
+        model = ridge_regression()
+    if model_name == "elastic-net":
+        model = elastic_net_regression()
+    if model_name == "backward":
+        dataset_df = select_backward_features(dataset_df)
+        model = linear_regression()
+    if model_name == "forward":
+        dataset_df = select_forward_features(dataset_df)
+        model = linear_regression()
+    if model_name == "polynomial":
+        dataset_df = select_polynomial_features(dataset_df)
+        model = linear_regression()
     print(f"+ Model {model_name} initialized \n")
 
     # Perform a cross validation
-    n_splits = args.n_splits
+    n_splits = args.n
     X, y_true = get_data_arrays(dataset_df)
     A = get_predictions_cv(X, y_true, model, n_splits=n_splits)
     X_train, X_test, Y_train, Y_test, Y_pred = A
     for i in range(len(X_train)):
-        mse_round = mean_squared_error(Y_test[i], Y_pred[i])
-        r2_round = r2_score(Y_test[i], Y_pred[i])
         print(
             f"[{i + 1}/{n_splits}]: Train set size: {X_train[i].shape[0]} / "
             f"Test set size: {Y_pred[i].shape[0]}"

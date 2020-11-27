@@ -94,3 +94,12 @@ Ridge regression can be used for feature selection.
 It is a regularization method that learns which features contribute best to the accuracy of the model while the model is being crated.
 It introduces additional constraints into the cost function and drive the model toward lower complexity (fewer coefficients).
 
+## Models
+
+- Linear
+- Lasso
+- Ridge
+- Elastic-net
+- Step-wise forward: forward selection + linear
+- Step-wise backward: backward selection + linear
+- Polynomial: polynomial selection + linear
