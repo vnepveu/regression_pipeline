@@ -3,7 +3,7 @@ import argparse
 from sklearn.linear_model import LinearRegression  # Temporary, used for test
 from sklearn.metrics import mean_squared_error, r2_score  # Temporary
 from data_preparation import load_dataset, prepare_data, get_data_arrays
-from data_evaluation import get_predictions_cv
+from data_evaluation import get_predictions_cv, get_score_cv
 from feature_engineering import (
     select_pca_features,
     select_forward_features,
@@ -44,7 +44,10 @@ def main():
     dataset_filename = args.dataset_filename
     dataset_df = load_dataset(dataset_filename)
     prepare_data(dataset_df)
-    print(f"+ Dataset {dataset_filename} loaded and cleaned")
+    print(
+        f"+ Dataset {dataset_filename} loaded and cleaned "
+        f"({dataset_df.shape[0]} samples)"
+    )
 
     # Preprocess the data
     feature_selection = args.feature_selection
@@ -75,9 +78,11 @@ def main():
         r2_round = r2_score(Y_test[i], Y_pred[i])
         print(
             f"[{i + 1}/{n_splits}]: Train set size: {X_train[i].shape[0]} / "
-            f"Test set size: {Y_pred[i].shape[0]} / "
-            f"MSE: {mse_round:2.2} - r2: {r2_round:2.2}"
+            f"Test set size: {Y_pred[i].shape[0]}"
         )
+
+    # Compute cross-validation, median, mean and standard dviation MSE and r2
+    print("\n" + get_score_cv(Y_pred, Y_test))
 
 
 if __name__ == "__main__":
