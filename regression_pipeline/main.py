@@ -16,6 +16,15 @@ from models import (
     elastic_net_regression,
 )
 
+POSSIBLE_MODELS = [
+    "linear",
+    "lasso",
+    "ridge",
+    "elastic-net",
+    "backward",
+    "forward",
+    "polynomial", ]
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -29,16 +38,9 @@ def main():
     parser.add_argument(
         "model_name",
         type=str,
-        choices=[
-            "linear",
-            "lasso",
-            "ridge",
-            "elastic-net",
-            "backward",
-            "forward",
-            "polynomial",
-        ],
-        help="type of model to use.",
+        choices=["all"] + POSSIBLE_MODELS,
+        help="type of model to use. If 'all' is selected, do the evaluation on"
+             "all models",
     )
     parser.add_argument(
         "-f",
@@ -61,7 +63,7 @@ def main():
     dataset_df = load_dataset(dataset_filename)
     prepare_data(dataset_df)
     print(
-        f"+ Dataset {dataset_filename} loaded and cleaned "
+        f"Dataset {dataset_filename} loaded and cleaned "
         f"({dataset_df.shape[0]} samples)"
     )
 
@@ -72,10 +74,18 @@ def main():
             dataset_df = select_correlation_features(dataset_df)
         if feature_selection == "pca":
             dataset_df = select_pca_features(dataset_df)
-        print(f"+ Preprocessing {feature_selection} applied on data")
-
-    # Chose the model to use
+        print(f"Preprocessing {feature_selection} applied on data")
     model_name = args.model_name
+    n_splits = args.n
+    if model_name == "all":
+        for model in POSSIBLE_MODELS:
+            run_model(dataset_df, model, n_splits, detailed_log=False)
+    else:
+        run_model(dataset_df, model_name, n_splits)
+
+
+def run_model(data, model_name, n_splits, detailed_log=True):
+    # Chose the model to use
     if model_name == "linear":
         model = linear_regression()
     if model_name == "lasso":
@@ -85,29 +95,31 @@ def main():
     if model_name == "elastic-net":
         model = elastic_net_regression()
     if model_name == "backward":
-        dataset_df = select_backward_features(dataset_df)
+        data = select_backward_features(data)
         model = linear_regression()
     if model_name == "forward":
-        dataset_df = select_forward_features(dataset_df)
+        data = select_forward_features(data)
         model = linear_regression()
     if model_name == "polynomial":
-        dataset_df = select_polynomial_features(dataset_df)
+        data = select_polynomial_features(data)
         model = linear_regression()
-    print(f"+ Model {model_name} initialized \n")
+    if detailed_log:
+        print(f"Model {model_name} initialized")
 
     # Perform a cross validation
-    n_splits = args.n
-    X, y_true = get_data_arrays(dataset_df)
+    X, y_true = get_data_arrays(data)
     A = get_predictions_cv(X, y_true, model, n_splits=n_splits)
     X_train, X_test, Y_train, Y_test, Y_pred = A
-    for i in range(len(X_train)):
-        print(
-            f"[{i + 1}/{n_splits}]: Train set size: {X_train[i].shape[0]} / "
-            f"Test set size: {Y_pred[i].shape[0]}"
-        )
+    if detailed_log:
+        for i in range(len(X_train)):
+            print(
+                f"[{i + 1}/{n_splits}]: Train set size: {X_train[i].shape[0]} "
+                f"/ Test set size: {Y_pred[i].shape[0]}"
+            )
 
-    # Compute cross-validation, median, mean and standard dviation MSE and r2
-    print("\n" + get_score_cv(Y_pred, Y_test))
+    # Compute cross-validation, median, mean and standard deviation MSE and r2
+    print(f"{model_name.capitalize()} model results :")
+    print(get_score_cv(Y_pred, Y_test) + "\n")
 
 
 if __name__ == "__main__":
