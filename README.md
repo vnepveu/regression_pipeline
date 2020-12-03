@@ -108,13 +108,15 @@ The SelectKbest function using f_regression as score function, compute the corre
 Only the'k' inputs having the higher correlation factors are kept for the model training.
 
 ## Step-wise Forward Regression <a name="forward"></a>
-forward selection + linear
+Step-wise regression is a training and fit method consisting on choosing features and model inputs in an automatic procedure. The procedure of feature selection is done by adding on eliminating initial features via a statistic t-test criterion.
+Forward regression approache starts with an empty set of features, and for each iteration of the feature selection we add the variable whose inclusion gives the most stastistical significance in terms of the fit. We repeat the procedure until there is no feature that has an acceptable statistical significance on the model. 
+After the selection procedure, a linear regression is processed on the newly created features.
 
 ## Step-wise Backward Regression <a name="backward"></a>
-backward selection + linear
+Backward regression is, with forward regression, another form of step-wise regression. While the forward starts with an empty dataset, the backward regression starts with all the features and eliminate at each iteration the inputs with the lest significance based on the t-test. We repeat the procedure until there is no features that can be removed by the statistical test and we proceed to a linear regression on the new features.
 
 ## Polynomial Regression <a name="polynomial"></a>
-polynomial selection + linear <a name="introduction1"></a>
+Polynomial regression is a regression analysis in which the relationship between input and output variables is modelled as an nth polynomial degree in the inputs. This approach is quite helpful in the case where a linear relationship assumption on the model does not hold. <a name="introduction1"></a>
 
 
 ### Regression Models <a name="models"></a>
