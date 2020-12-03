@@ -33,7 +33,7 @@ pip install -r requirements.txt
 
 In the the root of the repository, run the following command:
 ```
-python ./pipeline_regression/main.py ./datasets/filename.csv model_name -f feature_selection -n n_splits
+python3 ./pipeline_regression/main.py ./datasets/filename.csv model_name -f feature_selection -n n_splits
 ```
 
 - If `feature_selection` argument is not provided, no preprocessing will be done.
@@ -43,13 +43,13 @@ result with `>` can then be used to generate pretty markdown tables of the
 results.
 For instance :
 ```
-python ./pipeline_regression/main.py ./datasets/boston_housing.csv all -f pca -n 5 > boston_results.md
+python3 ./pipeline_regression/main.py ./datasets/boston_housing.csv all -f pca -n 5 > boston_results.md
 ```
 will generate a file called `boston_results.md` that is valid markdown.
 
 - For more details, run:
 ```
-python ./pipeline_regression/main.py -h
+python3 ./pipeline_regression/main.py -h
 ```
 
 ## Datasets <a name="datasets"></a>
