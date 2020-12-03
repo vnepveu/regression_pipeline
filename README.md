@@ -84,9 +84,9 @@ Description:
   - `pgg45`: percentage Gleason scores 4 or 5.
   - `lpsa` (target): log of PSA.
 
-## Feature selection <a name="feature_selection"></a>
+### Feature selection <a name="feature_selection"></a>
 
-### Principal Component Analysis - PCA <a name="pca"></a>
+## Principal Component Analysis - PCA <a name="pca"></a>
 
 Principal Component Analysis (PCA) is a dimensionality reduction technique that aims to reduce the number or features in the dataset. The technique is to combine the features in one matrix and extract the eigenvectors associated to the k highest eigenvalues in order to become the new features.
 
@@ -101,35 +101,42 @@ One of the main advantages of performing PCA before regression is to reduce the 
 The crucial decision to take before performing the PCA is to choose the number of output features. In our model, we choose to select the features depending on a desired level of variance to keep in our data.
 
 
-### Correlation <a name="correlation"></a>
+## Correlation <a name="correlation"></a>
 
 This technique takes in parameter the number 'k' of features to keep to train the model during next step.
 The SelectKbest function using f_regression as score function, compute the correlation between each of the input feature and the label column.
 Only the'k' inputs having the higher correlation factors are kept for the model training.
 
-
-## Regression Models <a name="models"></a>
-
-### Linear Regression <a name="linear"></a>
-
-### Lasso Regression <a name="lasso"></a>
-
-### Ridge Regression <a name="ridge"></a>
-
-Ridge regression can be used for feature selection.
-It is a regularization method that learns which features contribute best to the accuracy of the model while the model is being crated.
-It introduces additional constraints into the cost function and drive the model toward lower complexity (fewer coefficients).
-
-### Elastic-net Regression <a name="elasticnet"></a>
-
-### Step-wise Forward Regression <a name="forward"></a>
+## Step-wise Forward Regression <a name="forward"></a>
 forward selection + linear
 
-### Step-wise Backward Regression <a name="backward"></a>
+## Step-wise Backward Regression <a name="backward"></a>
 backward selection + linear
 
-### Polynomial Regression <a name="polynomial"></a>
+## Polynomial Regression <a name="polynomial"></a>
 polynomial selection + linear <a name="introduction1"></a>
+
+
+### Regression Models <a name="models"></a>
+
+## Linear Regression <a name="linear"></a>
+
+Linear Regression fits a linerar model by awarding to each input a coefficient in order to minimize a cost function. In Linear Regression, the cost function is the sum of squared errors between the target and the prediction.
+
+## Ridge Regression <a name="ridge"></a>
+Ridge Regression also fits a linear model but with an L2 penalty term being added to the cost function. This penalty term is the sum of the squared of the coefficient multiplied by a constant (Lagrange multiplier)
+
+Ridge regression is a regularized regression, the penalty term being also called a regularization term.
+
+## Lasso Regression <a name="lasso"></a>
+
+Lasso Regression also fits a linear model but with an L1 penalty term being added to the cost function. This penalty term is the sum of the absolute value of the coefficient multiplied by a constant (Lagrange multiplier)
+
+Lasso regression is also a regularized regression.
+
+## Elastic-net Regression <a name="elasticnet"></a>
+
+Elastic-net Regression is a linear regression that combines both L1 and L2 regularization. In fact, the cost function of the Elastic-net model has two penalty terms : one L1 and one L2.
 
 ## References <a name="references"></a>
 
