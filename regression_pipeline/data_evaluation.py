@@ -14,7 +14,7 @@ def get_predictions_cv(
     """Perform a cross-test with the provided model.
 
     :param X: design matrix (n_features, n_samples).
-    :param X: target vector (1, n_samples).
+    :param y_true: target vector (1, n_samples).
     :param model: model used to make predictions.
     :param n_splits: number of folds (must be at leat 2).
     :return:
@@ -55,7 +55,7 @@ def get_predictions_cv(
     )
 
 
-def get_score_cv(Y_pred, Y_test):
+def get_score_cv(Y_pred, Y_test, markdown: True):
     """Compute median and mean r2 and MSE over cross-validation predictions.
 
     :param Y_pred: test predictions (n_splits, n_samples, ).
@@ -87,5 +87,7 @@ def get_score_cv(Y_pred, Y_test):
         [scores_df.loc["MSE"].std(), scores_df.loc["r2"].std()],
         index=scores_df.index,
     )
+    if markdown:
+        return scores_df.round(2).transpose().to_markdown()
 
-    return scores_df.round(2).transpose().to_markdown()
+    return scores_df.round(2).transpose()

@@ -31,6 +31,12 @@ pip install -r requirements.txt
 
 ## Usage <a name="usage"></a>
 
+In the shell, do not forget to add the path to the repository to your `$PYTHONPATH` variable, by running:
+```
+export PYTHONPATH="path_to_repo/regression_pipeline/"
+```
+
+
 In the the root of the repository, run the following command:
 ```
 python ./pipeline_regression/main.py ./datasets/filename.csv model_name -f feature_selection -n n_splits
@@ -109,7 +115,7 @@ Only the'k' inputs having the higher correlation factors are kept for the model 
 
 ## Step-wise Forward Regression <a name="forward"></a>
 Step-wise regression is a training and fit method consisting on choosing features and model inputs in an automatic procedure. The procedure of feature selection is done by adding on eliminating initial features via a statistic t-test criterion.
-Forward regression approache starts with an empty set of features, and for each iteration of the feature selection we add the variable whose inclusion gives the most stastistical significance in terms of the fit. We repeat the procedure until there is no feature that has an acceptable statistical significance on the model. 
+Forward regression approache starts with an empty set of features, and for each iteration of the feature selection we add the variable whose inclusion gives the most stastistical significance in terms of the fit. We repeat the procedure until there is no feature that has an acceptable statistical significance on the model.
 After the selection procedure, a linear regression is processed on the newly created features.
 
 ## Step-wise Backward Regression <a name="backward"></a>
