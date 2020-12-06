@@ -174,6 +174,12 @@ PCA
 [] https://en.wikipedia.org/wiki/Principal_component_regression
 https://iq.opengenus.org/principal-component-regression/
 
+Polynomial regression 
+[] https://towardsdatascience.com/polynomial-regression-bbe8b9d97491
+
+Step-wise regression
+[] https://en.wikipedia.org/wiki/Stepwise_regression
+
 Prostate Cancer
 [] https://web.stanford.edu/~hastie/ElemStatLearn/datasets/prostate.data
 
