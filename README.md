@@ -23,7 +23,7 @@
    1. [Lasso Regression](#lasso)
    1. [Ridge Regression](#ridge)
    1. [Elastic-Net Regression](#elasticnet)
-   1. [Step-wise Forward & Backward Regression](#forward backward)
+   1. [Step-wise Forward and Backward Regression](#forward_backward)
    1. [Polynomial Regression](#polynomial)
 1. [References](#references)
 
@@ -99,7 +99,7 @@ Description:
 
 ### Feature selection <a name="feature_selection"></a>
 
-## Principal Component Analysis - PCA <a name="pca"></a>
+## Principal Component Analysis - PCA <a name="PCA"></a>
 
 Principal Component Analysis (PCA) is a dimensionality reduction technique that aims to reduce the number or features in the dataset. The technique is to combine the features in one matrix and extract the eigenvectors associated to the k highest eigenvalues in order to become the new features.
 
@@ -162,7 +162,7 @@ The analysis of boston housing dataset shows that the relationship for example b
 For all of these reasons, polynomial regression error score are pretty better than linear regression. However, introducing nth power degree of the feature impacts the stability of the model and results in have a quite better r2 score for linear regression.
 For prostate cancer dataset, the data exploration shows that there is less polynomial property in the relationship between lpsa (target) and the inputs. Hence, linear regression performs better than polynomial.
 
-## Step-wise Forward and Backward Regression <a name="forward backward"></a>
+## Step-wise Forward and Backward Regression <a name="forward_backward"></a>
 
 Foward and bakcward regression algorithms can be compared to a principal components analysis in terms of dimensionality reduction. However, the difference between the both is that PCA takes the variables that contains most of the features variance and thus information, whereas forward and backward selects variables with the best statistical information significance and data explanation. 
 For boston housing dataset example, forward regression selects 11 features for a p-value of 0.05 and backward regression selects 11 features too for a p-value of 0.01. We can notice and both algorithms drop AGE & INDUS features. This can be interpreted as the customers are not sensitive to weather the zone has old occupied buildings or if there is more or less industrial acres in the town.
