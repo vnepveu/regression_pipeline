@@ -162,7 +162,7 @@ The analysis of boston housing dataset shows that the relationship for example b
 For all of these reasons, polynomial regression error score are pretty better than linear regression. However, introducing nth power degree of the feature impacts the stability of the model and results in have a quite better r2 score for linear regression.
 For prostate cancer dataset, the data exploration shows that there is less polynomial property in the relationship between lpsa (target) and the inputs. Hence, linear regression performs better than polynomial.
 
-## Step-wise Forward & Backward Regression <a name="forward backward"></a>
+## Step-wise Forward and Backward Regression <a name="forward backward"></a>
 
 Foward and bakcward regression algorithms can be compared to a principal components analysis in terms of dimensionality reduction. However, the difference between the both is that PCA takes the variables that contains most of the features variance and thus information, whereas forward and backward selects variables with the best statistical information significance and data explanation. 
 For boston housing dataset example, forward regression selects 11 features for a p-value of 0.05 and backward regression selects 11 features too for a p-value of 0.01. We can notice and both algorithms drop AGE & INDUS features. This can be interpreted as the customers are not sensitive to weather the zone has old occupied buildings or if there is more or less industrial acres in the town.
