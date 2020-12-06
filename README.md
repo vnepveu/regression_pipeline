@@ -171,6 +171,18 @@ Foward and bakcward regression algorithms can be compared to a principal compone
 For boston housing dataset example, forward regression selects 11 features for a p-value of 0.05 and backward regression selects 11 features too for a p-value of 0.01. We can notice and both algorithms drop AGE & INDUS features. This can be interpreted as the customers are not sensitive to weather the zone has old occupied buildings or if there is more or less industrial acres in the town.
 For both datasets, stepwise regression has always one of the best scores in terms of bias and variance, i.e MSE and r2. Neverthless, one of the criticism that can be adressed to the stepwise algo is that it can be slower in terms of computation on huge datasets. This is because of the consuming procedure of selection that goes through all the features at each selection iteration.
 
+## Linear regression <a name="Linear"></a>
+Linear regression gives good result with the prostate_cancer dataset but not so good result with the boston_hounsing dataset.
+We notice that with the prostate_cancer dataset,linear regression gives better result when it is us without feature selection, while for the boston_housing dataset, a feature selection help to improve the score (we conisder MSE as the score here). This means that in the prostate_cancer dataset, the variance is more distribued on the different features while in the boston_housing data set, some features retain the major part of the variance.
+
+## Ridge, Lasso & ElasticNet regression <a name="Ridge, Lasso & Elastic Net"></a>
+
+Ridge, Lasso and ElasticNet regression models works on the same principles.
+They all Linear regression model with regularization terms. Ridge regression has an L2 regularization term, Lasso regression has an L1 regularization term and Elasticnet has both L1 and L2 regularization terms linked to each other by a proportionnal factor.
+Hence we can analyze the results of this three models together.
+The first thing that we notice is that for both dataset, Lasso regression is always the less efficent of these three models. 
+What's more, Ridge regression is in both case more efficient than ElasticNet regression. Hence we can conlude that the regularization with an L1 term doesn't help to fit these two datasets.
+
 # Good programming practices :<a name="programming_practices"></a>
 
 These practice, even though they might seem demanding and maybe rigid, are guidelines that should be enforced. It is not because these
@@ -241,7 +253,8 @@ It covers everything from the way variable names should be chosen to the number 
 This convention is often automatically enforced by modern code editors, and tools such as [pylint](https://www.pylint.org/) 
 can help the developer.
 
-# References <a name="references"></a>
+
+## References <a name="references"></a>
 
 PCA
 [] https://en.wikipedia.org/wiki/Principal_component_regression
