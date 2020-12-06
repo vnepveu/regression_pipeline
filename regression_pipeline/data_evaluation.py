@@ -55,7 +55,7 @@ def get_predictions_cv(
     )
 
 
-def get_score_cv(Y_pred, Y_test, markdown: True):
+def get_score_cv(Y_pred, Y_test, markdown=True):
     """Compute median and mean r2 and MSE over cross-validation predictions.
 
     :param Y_pred: test predictions (n_splits, n_samples, ).
