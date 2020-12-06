@@ -18,6 +18,13 @@
    1. [Step-wise Forward Regression](#forward)
    1. [Step-wise Backward Regression](#backward)
    1. [Polynomial Regression](#polynomial)
+1. [Results Analysis](#Results)
+   1. [Linear Regression](#linear)
+   1. [Lasso Regression](#lasso)
+   1. [Ridge Regression](#ridge)
+   1. [Elastic-Net Regression](#elasticnet)
+   1. [Step-wise Forward & Backward Regression](#forward backward)
+   1. [Polynomial Regression](#polynomial)
 1. [References](#references)
 
 ## Requirements and Installation <a name="requirements_installation"></a>
@@ -145,6 +152,21 @@ Lasso regression is also a regularized regression.
 ## Elastic-net Regression <a name="elasticnet"></a>
 
 Elastic-net Regression is a linear regression that combines both L1 and L2 regularization. In fact, the cost function of the Elastic-net model has two penalty terms : one L1 and one L2.
+
+### Results Analysis <a name="results"></a>
+
+## Polynomial Regression <a name="polynomial"></a>
+
+Linear regression is the most widely used approach when it comes to a linear relationship between the dependant variables (features) and independant variables (labels). However, in the case of non linear structures, a straight line doesn't capture most of data information and thus omits patterns in the data. 
+The analysis of boston housing dataset shows that the relationship for example between LSTAT & RM with the label has a second degree polynomial behaviour. Consequently, using polynomial features in our model will allow to have less bias (i.e lower mean squared error) and therefore less underfitting. We should note that the polynomial degree of the features has to be choosen carefully in order to avoid high variance and overfitting in our model. 
+For all of these reasons, polynomial regression error score are pretty better than linear regression. However, introducing nth power degree of the feature impacts the stability of the model and results in have a quite better r2 score for linear regression.
+For prostate cancer dataset, the data exploration shows that there is less polynomial property in the relationship between lpsa (target) and the inputs. Hence, linear regression performs better than polynomial.
+
+## Step-wise Forward & Backward Regression <a name="forward backward"></a>
+
+Foward and bakcward regression algorithms can be compared to a principal components analysis in terms of dimensionality reduction. However, the difference between the both is that PCA takes the variables that contains most of the features variance and thus information, whereas forward and backward selects variables with the best statistical information significance and data explanation. 
+For boston housing dataset example, forward regression selects 11 features for a p-value of 0.05 and backward regression selects 11 features too for a p-value of 0.01. We can notice and both algorithms drop AGE & INDUS features. This can be interpreted as the customers are not sensitive to weather the zone has old occupied buildings or if there is more or less industrial acres in the town.
+For both datasets, stepwise regression has always one of the best scores in terms of bias and variance, i.e MSE and r2. Neverthless, one of the criticism that can be adressed to the stepwise algo is that it can be slower in terms of computation on huge datasets. This is because of the consuming procedure of selection that goes through all the features at each selection iteration.
 
 ## References <a name="references"></a>
 

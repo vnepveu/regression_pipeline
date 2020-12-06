@@ -74,7 +74,7 @@ def select_pca_features(dataset_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def select_polynomial_features(
-    dataset_df: pd.DataFrame, degree: float = 3
+    dataset_df: pd.DataFrame, degree: float = 2
 ) -> pd.DataFrame:
     """
     Split the data into a train and test set and return the associated
@@ -107,7 +107,7 @@ def select_polynomial_features(
 
 
 def select_forward_features(
-    dataset_df: pd.DataFrame, threshold_in: float = 0.05, verbose=False
+    dataset_df: pd.DataFrame, threshold_in: float = 0.05, verbose=True
 ) -> pd.DataFrame:
     """
     Perform a forward feature selection based on the p-value of each ordinary
@@ -159,7 +159,7 @@ def select_forward_features(
 
 
 def select_backward_features(
-    dataset_df: pd.DataFrame, threshold_out: float = 0.01, verbose=False
+    dataset_df: pd.DataFrame, threshold_out: float = 0.01, verbose=True
 ) -> pd.DataFrame:
     """
     Perform a backward feature selection based on the p-value of each ordinary
