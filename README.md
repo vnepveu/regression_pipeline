@@ -26,6 +26,7 @@
    1. [Step-wise Forward and Backward Regression](#forward_backward)
    1. [Polynomial Regression](#polynomial)
 1. [Good programming practices](#programming_practices)
+   1. [Git and Github workflow](#github)
 1. [References](#references)
 
 ## Requirements and Installation <a name="requirements_installation"></a>
@@ -175,6 +176,10 @@ These practice, even though they might seem demanding and maybe rigid, are guide
 were our guidelines that each one of them is respected at all times. For instance, while getting familiar with the *git* tool, one might
 rather focus on actually understanding the workflow rather than the conventions surrounding it.
 
+The fact that this project is a small scale student project with no users makes it so that the programming practices, if they are not enforced
+perfectly, are not going to have much of an effect on the project itself. It is however a good habit to take, because on large projects
+with a vast codebase, not respecting conventions and good practices can have a devastating effect, in terms of time lost especially.
+
 ## Git and Github :
 
 Any self-respecting project should use a *Version Control System* (*VCS*). Git being the most popular, it is generally thought of as the only
@@ -210,6 +215,21 @@ to use the `-` character while naming branches. Branche names should be short an
 - Don't push to the remote repository, even when working on a branch, until all changes have been reviewed and integrated by the developer.
 It allows the developer to rewrite his local history with `git rebase -i`, so that many commits can be squashed together, typos can be fixed
 without having multiple commits for it, and so on.
+
+### Github workflow :
+
+- Even if all developer have a write access to *master*, and can therefore push their commits on it, it is discouraged to push commits 
+directly to master. It is better to merge changes through a *pull request*, which can be done via the Github interface or even Github CLI tool
+.
+
+- The pull request should originate from the branch the developer is working on. It should explain why the commits in the pull request are 
+necessary and what issues they address or bug they fix.
+
+- The developper opening a pull request should request a review from fellow developers. This way errors can be averted prior to merging the 
+pull request into master, as a new perspective on the code often perceives errors that would be invisible to the developer.
+
+- Discussions on the code should occur inside the pull request as much as possible, as these discussion are a good way to understand design
+choices later.
 
 ## References <a name="references"></a>
 
