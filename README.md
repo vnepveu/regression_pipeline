@@ -26,7 +26,8 @@
    1. [Step-wise Forward and Backward Regression](#forward_backward)
    1. [Polynomial Regression](#polynomial)
 1. [Good programming practices](#programming_practices)
-   1. [Git and Github workflow](#github)
+   1. [Git and Github](#github)
+   1. [Python](#python)
 1. [References](#references)
 
 ## Requirements and Installation <a name="requirements_installation"></a>
@@ -180,7 +181,7 @@ The fact that this project is a small scale student project with no users makes 
 perfectly, are not going to have much of an effect on the project itself. It is however a good habit to take, because on large projects
 with a vast codebase, not respecting conventions and good practices can have a devastating effect, in terms of time lost especially.
 
-## Git and Github :
+## Git and Github : <a name="github"></a>
 
 Any self-respecting project should use a *Version Control System* (*VCS*). Git being the most popular, it is generally thought of as the only
 correct option.
@@ -231,7 +232,16 @@ pull request into master, as a new perspective on the code often perceives error
 - Discussions on the code should occur inside the pull request as much as possible, as these discussion are a good way to understand design
 choices later.
 
-## References <a name="references"></a>
+## Python : <a name="python"></a>
+
+We strived to enforce the [PEP 8](https://www.python.org/dev/peps/pep-0008/) convention.
+The PEP are proposals made in the Python ecosystem that are often considered as strongly recommended guidelines
+for the way Python code is written. 
+It covers everything from the way variable names should be chosen to the number of empty lines between two functions. 
+This convention is often automatically enforced by modern code editors, and tools such as [pylint](https://www.pylint.org/) 
+can help the developer.
+
+# References <a name="references"></a>
 
 PCA
 [] https://en.wikipedia.org/wiki/Principal_component_regression
