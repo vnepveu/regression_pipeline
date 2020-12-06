@@ -25,6 +25,7 @@
    1. [Elastic-Net Regression](#elasticnet)
    1. [Step-wise Forward and Backward Regression](#forward_backward)
    1. [Polynomial Regression](#polynomial)
+1. [Good programming practices](#programming_practices)
 1. [References](#references)
 
 ## Requirements and Installation <a name="requirements_installation"></a>
@@ -167,6 +168,48 @@ For prostate cancer dataset, the data exploration shows that there is less polyn
 Foward and bakcward regression algorithms can be compared to a principal components analysis in terms of dimensionality reduction. However, the difference between the both is that PCA takes the variables that contains most of the features variance and thus information, whereas forward and backward selects variables with the best statistical information significance and data explanation. 
 For boston housing dataset example, forward regression selects 11 features for a p-value of 0.05 and backward regression selects 11 features too for a p-value of 0.01. We can notice and both algorithms drop AGE & INDUS features. This can be interpreted as the customers are not sensitive to weather the zone has old occupied buildings or if there is more or less industrial acres in the town.
 For both datasets, stepwise regression has always one of the best scores in terms of bias and variance, i.e MSE and r2. Neverthless, one of the criticism that can be adressed to the stepwise algo is that it can be slower in terms of computation on huge datasets. This is because of the consuming procedure of selection that goes through all the features at each selection iteration.
+
+# Good programming practices :<a name="programming_practices"></a>
+
+These practice, even though they might seem demanding and maybe rigid, are guidelines that should be enforced. It is not because these
+were our guidelines that each one of them is respected at all times. For instance, while getting familiar with the *git* tool, one might
+rather focus on actually understanding the workflow rather than the conventions surrounding it.
+
+## Git and Github :
+
+Any self-respecting project should use a *Version Control System* (*VCS*). Git being the most popular, it is generally thought of as the only
+correct option.
+
+An introduction to *git* can be found [here](https://git-scm.com/video/what-is-version-control).
+
+The following sections will assume at least basic knowledge of the *git* workflow and keywords.
+
+### Commit messages :
+- A commit message has two parts, a title and a details section.
+
+- When writing either part, it should be remembered that the commit messages won't be read only by the committing
+developer, but by all of the project's contributors. Even if the developer is working alone, writing a commit that even
+someone from outside the project could somewhat understand is essential, because things that might seem self-evident at the time of
+writing (e.g. "fix that really annoying bug") will be completely obscure a few month down the road.
+
+- The commit title should be < 50 char, and should strive to complete the sentence "this commit will …".
+It is brief, informative, and should summarize the changes in an imperative voice.
+
+- The commit details can be more verbose, but should rather focus on *why* the changes were made, not the changes
+themselves, because those can be found with a simple `git show`. It is there to justify design choices.
+
+### Git workflow :
+
+- It is better to do *atomic commits*, that is, commits that change only *one thing at a time*, ie for instance fix only one bug.
+Changing multiple features at once is discouraged, because it breaks the ability to reverse changes and find the commits introducing a bug.
+The other extreme should be avoided too, i.e. don't make one commit for each typo fixed.
+
+- When working on a new feature, make sure to work in a new branch by doing `git checkout -b feature-name`. It is generally thought better
+to use the `-` character while naming branches. Branche names should be short and easy to refer to, e.g. `fix-login-ui` or `result-analysis`.
+
+- Don't push to the remote repository, even when working on a branch, until all changes have been reviewed and integrated by the developer.
+It allows the developer to rewrite his local history with `git rebase -i`, so that many commits can be squashed together, typos can be fixed
+without having multiple commits for it, and so on.
 
 ## References <a name="references"></a>
 
