@@ -19,6 +19,7 @@ def select_correlation_features(
 ) -> pd.DataFrame:
     """Select the relevant features by looking at correlation.
 
+    :author: Antoine Lerosey
     :param dataset_df: a loaded dataset.
     :param n_features: number of top features to select.
     :return: the selected features.
@@ -44,6 +45,7 @@ def select_pca_features(dataset_df: pd.DataFrame) -> pd.DataFrame:
     Load a dataset and apply principal component analysis, in order to reduce
     dimensionality.
 
+    :author: Moad Yakoubi
     :param dataset_df: a loaded dataset.
     :return: transformed dataframe with reduced features and labels.
     """
@@ -80,6 +82,7 @@ def select_polynomial_features(
     Split the data into a train and test set and return the associated
     polynomial features.
 
+    :author: Moad Yakoubi
     :param dataset_df: a loaded dataset.
     :param degree: maximum polynomial degree to develop features.
     :return: transformed dataframe with reduced features and labels.
@@ -113,6 +116,7 @@ def select_forward_features(
     Perform a forward feature selection based on the p-value of each ordinary
     least squares method step.
 
+    :auhtor: Moad Yakoubi
     :param dataset_df: a loaded dataset.
     :param threshold_in: select features below (based on its p-value).
     :return: transformed dataframe with reduced features and labels.
@@ -165,6 +169,7 @@ def select_backward_features(
     Perform a backward feature selection based on the p-value of each ordinary
     least squares method step.
 
+    :author: Moad Yakoubi
     :param dataset_df: a loaded dataset.
     :param threshold_out: select features above (based on its p-value).
     :return: transformed dataframe with reduced features and labels.

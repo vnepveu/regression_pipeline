@@ -8,6 +8,7 @@ from pandas.api.types import is_integer_dtype, is_float_dtype
 
 def load_dataset(filename: str) -> pd.DataFrame:
     """Load a dataset from its filename.
+    :author: Victor Nepveu
     :param filename: path to the dataset's `.csv` file.
     :return: the loaded dataset in a dataframe.
     """
@@ -25,6 +26,7 @@ def _prepare_float(
     Fill missing values of a float column with its mean or median,
     and standardize it.
 
+    :author: Victor Nepveu
     :param column_series: column to process.
     :param mean: whether to fill missing values with the mean or the median.
     :param rescale: whether to rescale the column (standardize or normalize).
@@ -46,6 +48,7 @@ def _prepare_float(
 def _prepare_int(column_series: pd.Series, mean: bool = True) -> pd.Series:
     """Fill missing values of an integer column with its mean or median.
 
+    :author: Robin Courant
     :param column_series: column to process.
     :param mean: whether to fill missing values with the mean or the median.
     :return: the processed column.
@@ -60,6 +63,7 @@ def _prepare_int(column_series: pd.Series, mean: bool = True) -> pd.Series:
 def _prepare_bool(column_series: pd.Series) -> pd.Series:
     """Fill missing values of a bolean column with the most frequent value.
 
+    :author: Robin Courant
     :param column_series: column to process.
     :return: the processed column.
     """
@@ -79,6 +83,7 @@ def prepare_data(
 ) -> None:
     """Fill missing values and standardize float columns.
 
+    :author: Robin Courant
     :param dataset_df: dataset to process.
     :param drop_na: whether to drop every row with at least on `NaN` cell.
     :param mean_int: whether to use mean or the median for missing integers.
@@ -110,6 +115,7 @@ def get_data_arrays(dataset_df: pd.DataFrame) -> Tuple[np.array, np.array]:
     Split the dataset into design matrix and label vector, and convert them
     into numpy arrays.
 
+    :author: Robin Courant
     :param dataset_df: dataset to process.
     :return:
         - `X`: design matrix (n_samples, n_features).

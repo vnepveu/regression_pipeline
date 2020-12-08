@@ -13,6 +13,7 @@ def get_predictions_cv(
 ) -> Tuple[np.array, np.array, np.array, np.array, np.array]:
     """Perform a cross-test with the provided model.
 
+    :author: Robin Courant
     :param X: design matrix (n_features, n_samples).
     :param y_true: target vector (1, n_samples).
     :param model: model used to make predictions.
@@ -58,6 +59,7 @@ def get_predictions_cv(
 def get_score_cv(Y_pred, Y_test, markdown=True):
     """Compute median and mean r2 and MSE over cross-validation predictions.
 
+    :author: Robin Courant
     :param Y_pred: test predictions (n_splits, n_samples, ).
     :param Y_test: test target (n_splits, n_samples, ).
     :rerturn: median and mean of MSE and r2 scores.
