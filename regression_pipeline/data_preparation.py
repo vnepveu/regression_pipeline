@@ -8,6 +8,7 @@ from pandas.api.types import is_integer_dtype, is_float_dtype
 
 def load_dataset(filename: str) -> pd.DataFrame:
     """Load a dataset from its filename.
+    
     :author: Victor Nepveu
     :param filename: path to the dataset's `.csv` file.
     :return: the loaded dataset in a dataframe.
